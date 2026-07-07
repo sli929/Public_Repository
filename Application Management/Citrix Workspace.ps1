@@ -4,7 +4,7 @@
 # Save download file to c:\windows\temp\
 $Url = "https://downloadplugins.citrix.com/Windows/CitrixWorkspaceApp.exe"
 $Target = "$env:SystemRoot\Temp\CitrixWorkspaceApp.exe"
-$argument = "/silent STORE0=`"ACMP;https://partnergw.elevancehealth.com;ON;ACMP`" /NoReboot EnableCEIP=False "
+$argument = "/silent STORE0=`"CompanyURL;https://Red929.company.com;ON;Red929Company`" /NoReboot EnableCEIP=False "
 # require User logged in
 invoke-webrequest -Uri $Url -OutFile $Target  -Verbose
 # User not logged in - Invoke-WebRequest -Uri $Url -OutFile $Target -Verbose

@@ -27,11 +27,11 @@
 
 
 .EXAMPLE
-    .\AD_Name_Change_Optimized.ps1 -OldUPN "sli" -NewUPN "slee" -Lastname_New "Lee" -Firstname_New "Stephan" -Initial_New "M"
+    .\AD_UserRenameV2.ps1 -OldUPN "sli" -NewUPN "slee" -Lastname_New "Lee" -Firstname_New "Stephan" -Initial_New "M"
 
 .EXAMPLE
     # Dry run first - shows what would happen, changes nothing
-    .\AD_Name_Change_Optimized.ps1 -OldUPN "sli" -NewUPN "slee" -Lastname_New "Lee" -WhatIf
+    .\AD_UserRenameV2.ps1 -OldUPN "sli" -NewUPN "slee" -Lastname_New "Lee" -WhatIf
 #>
 
 [CmdletBinding(SupportsShouldProcess = $true, ConfirmImpact = 'High')]

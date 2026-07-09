@@ -3,20 +3,38 @@
     Name change for hybrid (on-prem AD + AAD) environment.
     Updates GivenName/Initials/Surname, CN, DisplayName, UPN, SamAccountName,
     primary email, mailNickname, and proxyAddresses for a single user.
+  
+    Reason for name changes:
+    Marriage/Divorce, Gender Transition, Cultural/Religious reasons, Adoption, legal name change, etc.
+
 
     # The user MUST have exchange mailbox setup first or script will error out. The custom mail attributes are REQUIRED!!
-    # Script tested and works in Powershell 7 as well #
+    # Script tested and works well in Powershell 7 environment #
 
 .NOTES
 
-    Scenarios: Marriage/Divorce, Gender Transition, Cultural/Religious reasons, Adoption, legal name change, etc.
+    ** Firstname, Initials, surname are optional fields (fill only if changes to name)
+    ** Old UPN and new UPN is required
+    This script assumes that the old email is to be used as an email alias and proxy address.
 
-    Immutable identifiers (objectGUID/objectSid on-prem, objectId in AAD) are what keep systems
-    linked together — NOT UPN/SamAccountName/email. So this rename is safe for AD, AAD, Exchange,
-    OneDrive, SharePoint, Office apps, and folder ACLs.
+    Impact of modification:
+    Systems like AD, Exchange, etc. aren't joined together by the attributes like userPrincipalName (deliberately setting aside AD-AAD soft matching), but rather "primary key" identifiers like objectGUID or objectSid (on-premise Active Directory), or objectID/Id (Azure AD/Graph). 
+    These are generally referred to as "immutable identifiers" as they cannot change over the course of their life.
+    Using these immutable identifiers allows actions like renames to take place and be reflected across all those integrated systems without breaking anything.
+    So modification to SAM, UPN, email should have little to no impact to a user unless an attribute like UPN/email/SAM is used to integrate with third party apps.
 
-    Possible impact: third-party apps that key off UPN/email/SAM instead of an immutable ID
-    (HR systems like Workday/ADP, DUO/2FA sync providers, custom department apps).
+    Platform with no impact:
+    Onedrive
+    sharepoint
+    Office apps
+    Folder ACL
+
+    Possible impact (third party apps):
+    ADP/workday (HR platforms if integrated with AD)
+    DUO or other (2FA platform synching from AD directories)
+    Possibily specific departmental applications if sign in are mapped to LDAP
+
+    ************************
 
     The script uses [$PSCmdlet.ShouldProcess] for -whatif parameter - this triggers a prompt for user to accept before proceeding with changes..
     if ($PSCmdlet.ShouldProcess($OldUPN, "Update EmailAddress, mailNickname, proxyAddresses"))

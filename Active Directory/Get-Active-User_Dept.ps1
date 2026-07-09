@@ -2,6 +2,16 @@
 .SYNOPSIS
     Get list of of enabled AD users by Site and Department, across one or more Site OUs.
 
+    ###################
+    Modify OU selection here from [Ordered Dictionary].
+
+    System.Collections.Specialized.OrderedDictionary]$Sites = ([ordered]@{
+        'Boston'   = "OU=Boston,OU=Users and Computers,DC=Red929,DC=com"
+        'New York' = "OU=New_York_city,OU=Users and Computers,DC=Red929,DC=com"
+    }),
+
+    ###################
+    
 .EXAMPLE
     .\Get-Active-User_Dept.ps1
 

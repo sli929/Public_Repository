@@ -3,6 +3,13 @@
     Audit report: disabled AD users (with a Title, i.e. real people not service/shared/room
     accounts) under a given OU, with their most recent logon time across the domain.
 
+    
+    ###########
+    Modify OU path under parameter:
+
+    [string]$OUPath = "DC=Red929,DC=com",
+    ###########
+
 .NOTES
     Intended for AD cleanup/audit of terminated employees.
 

@@ -11,6 +11,13 @@
     # The user MUST have exchange mailbox setup first or script will error out. The custom mail attributes are REQUIRED!!
     # Script tested and works well in Powershell 7 environment #
 
+    ##########################
+    # Modify the domain under parameter:
+        
+    [string]$FundsDomain   = "@red929.com",
+    [string]$DefaultDomain = "@red929.mail.onmicrosoft.com"
+    ##########################
+
 .NOTES
 
     ** Firstname, Initials, surname are optional fields (fill only if changes to name)
@@ -45,11 +52,11 @@
 
 
 .EXAMPLE
-    .\AD_Name_Change_Optimized.ps1 -OldUPN "sli" -NewUPN "slee" -Lastname_New "Lee" -Firstname_New "Stephan" -Initial_New "M"
+    .\AD_NameChangeV2.ps1 -OldUPN "sli" -NewUPN "slee" -Lastname_New "Lee" -Firstname_New "Stephan" -Initial_New "M"
 
 .EXAMPLE
     # Dry run first - shows what would happen, changes nothing
-    .\AD_Name_Change_Optimized.ps1 -OldUPN "sli" -NewUPN "slee" -Lastname_New "Lee" -WhatIf
+    .\AD_NameChangeV2.ps1 -OldUPN "sli" -NewUPN "slee" -Lastname_New "Lee" -WhatIf
 #>
 
 [CmdletBinding(SupportsShouldProcess = $true, ConfirmImpact = 'High')]

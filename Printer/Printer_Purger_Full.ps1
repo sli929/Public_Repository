@@ -1,4 +1,5 @@
 <#
+.SYNOPSIS
 The following script is designed to remove a specific printer and its associated driver from a Windows system. The script performs the following steps:
 
 The script is intended to resolve issues relating to Fiery Essential Driver replacing newer Microsoft Visual C++ runtime libraries with an older version, causing issues with application dependencies. 
@@ -23,7 +24,7 @@ https://help.fiery.com/fierydriverwin/45265167_FieryEssentialDriverCRN_Win_Fiery
 3. If none of the items exist, end script
 
 *************************************************************
-*Notes:
+.NOTES
 Wildcard can be used:
     PrinterPurge -PrinterName "mail-color-01" -DriverName "*Xerox EX*" -INFFile "*\oemsetupen.inf" -Verbose
 
@@ -32,7 +33,7 @@ User can remove [Printer OR Driver OR inf file]. User can also remove all of the
 Script works for FULL purge or PARTIAL purge.
 
 *************************************************************
-# Example:
+.EXAMPLE
     # Printer only
         PrinterPurge  -PrinterName "printer*"
     # Driver only
@@ -43,7 +44,6 @@ Script works for FULL purge or PARTIAL purge.
          PrinterPurge -PrinterName "mail-color*" -DriverName "*generic*" 
     # Printer/driver/INF (ALL)
          PrinterPurge -PrinterName "mail-color*" -DriverName "*Xerox EX*" -INFFile " *\oemsetupen.inf"
-
 
 *************************************************************
 Visual workflow chart:

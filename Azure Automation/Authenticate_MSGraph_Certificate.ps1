@@ -49,7 +49,7 @@ $Cert_Subject= "CN=Red929.com"
 #####################################################
 
 #Install module if not available
-function Module_Install {
+function ModuleInstall {
 
     [CmdletBinding()]
     param (
@@ -120,7 +120,7 @@ function Module_Install {
 $RequiredModules = @('Microsoft.Graph.Authentication', 'Az.Accounts', 'Az.KeyVault')
 foreach ($module in $RequiredModules) {
 
-    Module_Install -ModuleName $module
+    ModuleInstall -ModuleName $module
 }
 
 #########################################################

@@ -1,0 +1,50 @@
+# Install AD module for windows server
+
+function Get-ADModule {
+   
+# Check if AD module is loaded -
+    $AD_Module = get-module -Name activedirectory
+
+    # If module is not loaded - try import it 
+    if(-not $AD_Module){
+        
+        Write-Output "Attempting to import Active Directory module.......`n"
+        import-module activedirectory -Force 
+
+        # Check module post import
+        $AD_Module_Check = get-module -Name activedirectory
+
+        # Module path
+        $Path = (Get-Module -ListAvailable activedirectory).path
+        if(Test-Path -path $Path){  
+            Write-Output "Imported active directory module from:`n$path.......`n"
+        }
+        
+        # If importing module fails - install it then import it
+        if(-not $AD_Module_Check){
+        
+        # Install the windows feature
+            Write-Output "##### Installing RSAT AD and import AD module #####`n"
+            Install-WindowsFeature -Name “RSAT-AD-PowerShell” -IncludeAllSubFeature #For Windows Server
+
+        # Import the module
+            Write-Output "`nImporting Active Directory module.......`n"
+            import-module activedirectory -Force
+
+        # Check for imported module
+            if(get-module -Name activedirectory){
+
+            Write-Warning "`n##### Actived directory module is installed and imported successfully #####`n"
+                
+        # Module path
+            $Path = (Get-Module -ListAvailable activedirectory).path
+            Write-Output "`nImported Active Directory module from:`n$path.......`n"                
+
+            }else{
+
+            Write-Warning "`n##### Active Directory module is NOT installed #####`n"
+
+            }
+        }
+    }
+}# End function [Get-ADModule]

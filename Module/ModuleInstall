@@ -1,0 +1,74 @@
+<#
+.SYNOPSIS
+Install multiple modules required for scripting with function "ModuleInstall".
+
+.EXAMPLE
+
+$RequiredModules = @('Microsoft.Graph.Authentication', 'Az.Accounts', 'Az.KeyVault')
+foreach ($module in $RequiredModules) {
+    ModuleInstall -ModuleName $module
+}
+
+#>
+
+function ModuleInstall {
+
+    [CmdletBinding()]
+    param (
+        [Parameter(Mandatory = $true)]
+        [string]$ModuleName
+    )
+
+# Check if module is loaded -
+     $Module = get-module -Name $ModuleName
+
+    # If module is not loaded - try import it 
+    if(-not $Module){
+        
+        Write-Warning "Attempting to import $ModuleName module.......`n"
+        import-module $ModuleName -Force
+
+        # Check module post import
+        $Module_Check = get-module -Name $ModuleName
+
+        # Module path
+        $Path = (Get-Module -ListAvailable $ModuleName).path
+        if(Test-Path -path $Path){  
+            Write-Output "Imported $ModuleName from:`n$path.......`n"
+        }
+        
+        # If importing module fails - install it then import it
+        if(-not $Module_Check){
+        
+        # Install the module
+            Write-Output "`n####### Installing $ModuleName #######`n"
+            Install-Module -Name $ModuleName -Repository PSGallery -Force -AllowClobber -Scope AllUsers
+
+        # Import the module
+            Write-Output "`nImporting $ModuleName module.......`n"
+            import-module $ModuleName -Force
+
+        # Check for imported module
+            if(get-module -Name $ModuleName){
+
+            Write-Warning "`n##### $ModuleName module is installed and imported successfully #####`n"
+                
+        # Module path
+            $Path = (Get-Module -ListAvailable $ModuleName).path
+            Write-Output "`nImported $ModuleName from:`n$path.......`n"                
+
+            }else{
+
+            Write-Warning "`n##### $ModuleName module is NOT installed #####`n"
+
+            }
+        }
+    }
+}# End function [ModuleInstall]
+
+# Install Required Modules
+$RequiredModules = @('Microsoft.Graph.Authentication', 'Az.Accounts', 'Az.KeyVault')
+foreach ($module in $RequiredModules) {
+
+    ModuleInstall -ModuleName $module
+}

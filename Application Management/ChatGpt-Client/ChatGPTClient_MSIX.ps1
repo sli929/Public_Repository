@@ -7,6 +7,8 @@ Remove-AppxPackage: The 'Remove-AppxPackage' command was found in the module 'Ap
     Run terminal as admin to remove it for all users - "Remove-AppxPackage -Package "OpenAI.Codex_26.930.3748.0_x64__2p2nqsd0c76g0" -allusers"
 
 
+# offline license XML file is optional*
+
 #>
 ####################################################
 

@@ -7,6 +7,8 @@ Remove-AppxPackage: The 'Remove-AppxPackage' command was found in the module 'Ap
     Run terminal as admin to remove it for all users - "Remove-AppxPackage -Package "OpenAI.Codex_26.930.3748.0_x64__2p2nqsd0c76g0" -allusers"
 
 
+Append "-logpath" to add-AppxProvisionedPackage for troubleshooting and debugging. All logs will be saved to %WINDIR%\Logs\Dism\dism.log by default. Default log level is 3 (3 = Errors, warnings, and information)
+
 #>
 ####################################################
 
@@ -108,7 +110,7 @@ if(test-path $MSIXPath){
   Write-Output "`nChatGPT-x64.msix found....Executing Installation`n" 
 
 # execute MSI command line installation with license file
-Add-AppxProvisionedPackage -Online -PackagePath "$LogPath\ChatGPT-x64.msix" -LicensePath "$LogPath\ChatGPT-License.xml" -Regions all
+Add-AppxProvisionedPackage -Online -PackagePath "$LogPath\ChatGPT-x64.msix" -LicensePath "$LogPath\ChatGPT-License.xml"  -LogPath "$LogPath\OpenAICodex_Install.log" -Verbose -Regions all
 
   # Verify that codex is installed
   $Codex_Details = Get-AppxProvisionedPackage -Online | Where-Object {$_.DisplayName -like "*openai.codex*"}

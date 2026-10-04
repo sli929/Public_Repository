@@ -9,6 +9,9 @@ Remove-AppxPackage: The 'Remove-AppxPackage' command was found in the module 'Ap
 
 Append "-logpath" to add-AppxProvisionedPackage for troubleshooting and debugging. All logs will be saved to %WINDIR%\Logs\Dism\dism.log by default. Default log level is 3 (3 = Errors, warnings, and information)
 
+More logging info:
+https://learn.microsoft.com/en-us/windows/msix/desktop/managing-your-msix-deployment-troubleshooting
+
 #>
 ####################################################
 

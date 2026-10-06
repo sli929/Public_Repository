@@ -46,7 +46,7 @@ Start-Transcript -Path $LogFile -Force
 ############# Start download of chatgpt codex MSIX and license XML#############
 
 Try{
-    # Start-bitstransfer works well for bigger files
+    # Start-bitstransfer works well for bigger files. (Requires user signed in - interactive session) - Great if script requires a user to be logged in.
     $DownloadURL_MSIX = "https://persistent.oaistatic.com/codex-app-prod/ChatGPT-x64.msix"
     $FilePath_MSIX = "$LogPath\ChatGPT-x64.msix"
 
@@ -61,7 +61,8 @@ Try{
 
         
     }catch{
-        # If terminating error occurs, catch message. Fall back and re try
+        # If terminating or non-terminating error occurs, execute catch block.
+        # Fall back with "Invoke-WebRequest" (ideal for background and non-interactive scripts)  - Great if script runs in non-interactive mode.
         Write-Output "Error: $($_.Exception.Message)"
     
         Write-Output "`n##### Falling back to download with Invoke-webRequest for MSIX #####"

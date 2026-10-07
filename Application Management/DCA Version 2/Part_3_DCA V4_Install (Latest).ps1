@@ -106,7 +106,6 @@ $VersionBuild = Get-ItemProperty HKLM:\SOFTWARE\Wow6432Node\Microsoft\VisualStud
 # Download both shortcut and MSI file for DCA
 
 ############# Start download of DCA shortcut #############
-# The process involves pulling item from onedrive using Invoke-WebRequest
 # If invoke-webrequest times out and fails, fall back to start-bitsTransfer to pull again with a different link
 
 Write-Output "`n##### Start download of DCA Shortcut.....#####`n" 
@@ -145,24 +144,24 @@ Try{
     
 
 ############# Start download of DCA MSI #############
-# The process involves pulling item from onedrive using Invoke-WebRequest
 # If invoke-webrequest times out and fails, fall back to start-bitsTransfer to pull again with a different link
 
 Try{
     # Start-bitstransfer works well for bigger files
     $DownloadURL_MSI = "https://aka.ms/dca-installer"
     $FilePath_MSI = "$LogPath\Microsoft.Dynamics.CompanionApp.Installer.MSI"
-    
-    Write-Output "`nStart download of DCA shortcut with Start-BitsTransfert`n"
-    Start-BitsTransfer -Source $DownloadURL_MSI -Destination $FilePath_MSI -Verbose -Description "DCA MSI"
 
+    Write-Output "`n##### Falling back to download with Invoke-webRequest #####"
+    Invoke-WebRequest -Uri $DownloadURL_MSI -OutFile $FilePath_MSI -Verbose
+    
         
     }catch{
         # If terminating error occurs, catch message. Fall back and re try
         Write-Output "Error: $($_.Exception.Message)"
     
-        Write-Output "`n##### Falling back to download with Invoke-webRequest #####"
-        Invoke-WebRequest -Uri $DownloadURL_MSI -OutFile $FilePath_MSI -Verbose
+        Write-Output "`nStart download of DCA shortcut with Start-BitsTransfert`n"
+        Start-BitsTransfer -Source $DownloadURL_MSI -Destination $FilePath_MSI -Verbose -Description "DCA MSI"
+
     
     }
     

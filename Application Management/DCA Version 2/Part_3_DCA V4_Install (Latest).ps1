@@ -115,6 +115,7 @@ Try{
     $DownloadURL_Shortcut = "https://github.com/sli929/Public_Repository/blob/main/Application%20Management/DCA%20Version%202/Shortcut/Microsoft%20Dynamic%20Companion%20App.lnk?raw=true"
     $FilePath_Shortcut = "$LogPath\Microsoft Dynamic Companion App.lnk"
     Write-Output "`nStart download of DCA MSI with Invoke-WebRequest`n"
+    $ProgressPreference = 'SilentlyContinue'
     Invoke-WebRequest -Uri $DownloadURL_Shortcut -OutFile $FilePath_Shortcut -Verbose 
     
     }catch{
@@ -152,7 +153,8 @@ Try{
     $FilePath_MSI = "$LogPath\Microsoft.Dynamics.CompanionApp.Installer.MSI"
 
     Write-Output "`n##### Falling back to download with Invoke-webRequest #####"
-    Invoke-WebRequest -Uri $DownloadURL_MSI -OutFile $FilePath_MSI -Verbose
+    $ProgressPreference = 'SilentlyContinue'
+    Invoke-WebRequest -Uri $DownloadURL_MSI -OutFile $FilePath_MSI -Verbose 
     
         
     }catch{

@@ -66,9 +66,11 @@ Try{
         Write-Output "Error: $($_.Exception.Message)"
     
         Write-Output "`n##### Falling back to download with Invoke-webRequest for MSIX #####"
+        $ProgressPreference = 'SilentlyContinue'
         Invoke-WebRequest -Uri $DownloadURL_MSIX -OutFile $FilePath_MSIX -Verbose
 
         Write-Output "`n##### Falling back to download with Invoke-webRequest for offline license #####"
+        $ProgressPreference = 'SilentlyContinue'
         Invoke-WebRequest -Uri $DownloadURL_XML -OutFile $FilePath_XML -Verbose
     }
     

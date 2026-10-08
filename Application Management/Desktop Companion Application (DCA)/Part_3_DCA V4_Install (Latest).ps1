@@ -112,7 +112,7 @@ Write-Output "`n##### Start download of DCA Shortcut.....#####`n"
 
 Try{
     # Fetch the raw file shortcut from  Github public repository
-    $DownloadURL_Shortcut = "https://github.com/sli929/Public_Repository/blob/main/Application%20Management/DCA%20Version%202/Shortcut/Microsoft%20Dynamic%20Companion%20App.lnk?raw=true"
+    $DownloadURL_Shortcut = "https://github.com/sli929/Public_Repository/blob/main/Application%20Management/Desktop%20Companion%20Application%20(DCA)/Shortcut/Microsoft%20Dynamic%20Companion%20App.lnk?raw=true"
     $FilePath_Shortcut = "$LogPath\Microsoft Dynamic Companion App.lnk"
     Write-Output "`nStart download of DCA MSI with Invoke-WebRequest`n"
     $ProgressPreference = 'SilentlyContinue'
@@ -121,7 +121,7 @@ Try{
     }catch{
         # If terminating error occurs, catch message. Fall back and re try a different link with start-bitstransfer
         Write-Output "Error: $($_.Exception.Message)"
-        $DownloadURL_Shortcut2 = "https://github.com/sli929/Public_Repository/blob/main/Application%20Management/DCA%20Version%202/Shortcut/Microsoft%20Dynamic%20Companion%20App.lnk?raw=true"
+        $DownloadURL_Shortcut2 = "https://github.com/sli929/Public_Repository/blob/main/Application%20Management/Desktop%20Companion%20Application%20(DCA)/Shortcut/Microsoft%20Dynamic%20Companion%20App.lnk?raw=true"
         Write-Output "`n##### Falling back to download with Start-BitsTransfer #####"
         Start-BitsTransfer -Source $DownloadURL_Shortcut2 -Destination $FilePath_Shortcut -Verbose -Description "DCA shortcut"
     
